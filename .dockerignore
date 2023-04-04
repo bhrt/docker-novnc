@@ -1,0 +1,23 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Maven
+target/
+.flattened-pom.xml
+ 
+# Angular
+node_modules/
+dist/
+ 
+# DPML tooling
+*.dpm
+ 
+# common
+*.log

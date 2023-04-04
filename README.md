@@ -2,12 +2,12 @@
 
 This Docker container starts an X server with fluxbox, makes it accessible via noVNC, and then runs the command provided to it.
 
-The container is based on `ubuntu:20.04`.
+The container is based on `debian:bullseye`.
 
 ## Usage (CLI)
 
 ```
-docker run --rm -it -p 8080:8080 suchipi/novnc
+docker run --rm -it -p 8080:8080 <imagename>
 ```
 
 Then, open <http://localhost:8080/>.
@@ -15,17 +15,27 @@ Then, open <http://localhost:8080/>.
 To run a program, append it to the end of the command:
 
 ```
-docker run --rm -it -p 8080:8080 suchipi/novnc xterm
+docker run --rm -it -p 8080:8080 <imagename> xterm
 ```
 
 When run this way, the container will exit once the program you specified exits.
+
+OR
+
+ad your own configuration to supervisord config directory.
+
+[Supervisord Documentation](http://supervisord.org/)
+```
+/app/conf.d/
+```
+
 
 ## Usage (As Dockerfile `FROM` base)
 
 You can also use this container as a base image in a Dockerfile. Set up your Dockerfile as normal, then use `CMD` to specify what to run in the container (if anything). The following example installs wine, downloads the [BGB Game Boy emulator](https://bgb.bircd.org/), and sets it as the startup command for the container:
 
 ```Dockerfile
-FROM suchipi/novnc
+FROM <imagename>
 
 # Install wine
 RUN dpkg --add-architecture i386 && \
@@ -49,11 +59,10 @@ This container is built using the following software:
 - [noVNC](https://novnc.com/info.html) - browser-based VNC client used to expose the X session to the host
 - [TigerVNC](https://tigervnc.org/) - the X server and VNC server used
 - [Supervisor](http://supervisord.org/) - to start Fluxbox, noVNC, and TigerVNC
-- [Expect](https://www.tcl.tk/man/expect5.31/index.html) - To wait for the services to go up and execute the command you specified (if present)
 
 ## Credits
 
-This container is based heavily on [theasp/docker-novnc](https://github.com/theasp/docker-novnc).
+This container is based heavily on [theasp/docker-novnc](https://github.com/theasp/docker-novnc) and [suchipi/docker-novnc](https://github.com/suchipi/docker-novnc).
 
 ## License
 
